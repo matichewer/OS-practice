@@ -1,7 +1,20 @@
+# Compilar con y sin -Wall
+# make
+# make WITH_WALL=1
+
+
 # Variables
 CC = gcc
-CFLAGS = -Wall -pthread
+CFLAGS_BASE = -pthread
+CFLAGS_WALL = -Wall
 BIN_DIR = bin
+
+# Variable condicional para activar o desactivar -Wall
+ifeq ($(WITH_WALL),1)
+	CFLAGS = $(CFLAGS_WALL) $(CFLAGS_BASE)
+else
+	CFLAGS = $(CFLAGS_BASE)
+endif
 
 # Encuentra todos los archivos .c en las carpetas
 PROCESS_SRCS = $(wildcard 1-processes/*.c)
