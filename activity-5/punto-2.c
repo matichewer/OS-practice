@@ -11,7 +11,6 @@
 #define B 2
 #define C 3
 
-int CANT_ITERACIONES = 5;
 
 typedef struct {
     long mtype;  // Tipo de mensaje
@@ -19,7 +18,7 @@ typedef struct {
 
 void procesoA(int cola_id) {
     mensaje msg;
-    for (int i = 0; i < CANT_ITERACIONES * 4; i++) {
+    while(1) {
         // Esperar mensaje de tipo A
         msgrcv(cola_id, &msg, sizeof(msg) - sizeof(long), A, 0);
 
@@ -34,7 +33,7 @@ void procesoA(int cola_id) {
 
 void procesoB(int cola_id) {
     mensaje msg;
-    for (int i = 0; i < CANT_ITERACIONES * 3; i++) {
+    while(1) {
         // Esperar mensaje de tipo B
         msgrcv(cola_id, &msg, sizeof(msg) - sizeof(long), B, 0);
 
@@ -49,25 +48,25 @@ void procesoB(int cola_id) {
 
 void procesoC(int cola_id) {
     mensaje msg;
-    for (int i = 0; i < CANT_ITERACIONES; i++) {
+    while(1) {
         
-        msgrcv(cola_id, &msg, sizeof(msg) - sizeof(long), C, 0);
+        msgrcv(cola_id, &msg, sizeof(msg) - sizeof(long), C, 0); // espera C
         msg.mtype = B;
-        msgsnd(cola_id, &msg, sizeof(msg) - sizeof(long), 0);
-		msgrcv(cola_id, &msg, sizeof(msg) - sizeof(long), C, 0);
+        msgsnd(cola_id, &msg, sizeof(msg) - sizeof(long), 0); // envia B
+		msgrcv(cola_id, &msg, sizeof(msg) - sizeof(long), C, 0); // espera C
         msg.mtype = B;
-        msgsnd(cola_id, &msg, sizeof(msg) - sizeof(long), 0);
+        msgsnd(cola_id, &msg, sizeof(msg) - sizeof(long), 0); // envia B
 
-	    msgrcv(cola_id, &msg, sizeof(msg) - sizeof(long), C, 0);
+	    msgrcv(cola_id, &msg, sizeof(msg) - sizeof(long), C, 0); // espera C
         msg.mtype = B;
-        msgsnd(cola_id, &msg, sizeof(msg) - sizeof(long), 0);
-	    msgrcv(cola_id, &msg, sizeof(msg) - sizeof(long), C, 0);
+        msgsnd(cola_id, &msg, sizeof(msg) - sizeof(long), 0); // envia B
+	    msgrcv(cola_id, &msg, sizeof(msg) - sizeof(long), C, 0); // espera C
 
         printf("C\n");
 	    fflush(stdout);
         // Enviar mensaje de tipo A
         msg.mtype = A;
-        msgsnd(cola_id, &msg, sizeof(msg) - sizeof(long), 0);
+        msgsnd(cola_id, &msg, sizeof(msg) - sizeof(long), 0); // envia A
         sleep(1);
     }
 }
