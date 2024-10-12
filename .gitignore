@@ -54,3 +54,4 @@ dkms.conf
 # My adds
 bin/
 *.txt
+.vscode
