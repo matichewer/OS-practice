@@ -10,23 +10,28 @@ sem_t semA, semB, semC, semD;
 void* tareaA(void* arg) {
     while(1) {
         sem_wait(&semA);
+        
         // Código Arriba
         printf("A");
         fflush(stdout);
-        sleep(1);
+        usleep(10000);
         // Código Abajo
         sem_post(&semB);
+ 
+
     }
 }
 
 void* tareaB(void* arg) {
     while(1) {
         sem_wait(&semB);
+
         // Código Arriba
         printf("B");
         fflush(stdout);
-        sleep(1);
+        usleep(10000);
         // Código Abajo
+       
         sem_post(&semC);
 
     }
@@ -40,7 +45,7 @@ void* tareaC(void* arg) {
         // Código Arriba
         printf("C");
         fflush(stdout);
-        sleep(1);
+        usleep(10000);
         // Código Abajo
         sem_post(&semD);
 
@@ -60,7 +65,7 @@ void* tareaD(void* arg) {
         // Código Arriba
         printf("D");
         fflush(stdout);
-        sleep(1);
+        usleep(10000);
         // Código Abajo
         sem_post(&semA);
     }
@@ -77,6 +82,8 @@ int main() {
     sem_init(&semC, 0, 0);
     sem_init(&semD, 0, 0);
     
+
+
     pthread_create(&threadA, NULL, tareaA, NULL);
     pthread_create(&threadB, NULL, tareaB, NULL);
     pthread_create(&threadC, NULL, tareaC, NULL);
