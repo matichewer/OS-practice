@@ -7,9 +7,19 @@
 // Variables compartidas
 int buffer = 0;  // Contador de elementos
 
-// Mutex y variable de condición
+// Mutex
 pthread_mutex_t mut = PTHREAD_MUTEX_INITIALIZER;
+// la anterior linea de codigo es lo mismo que hacer las siguientes 2 lineas:
+// pthread_mutex_t mut;
+// pthread_mutex_init(&mut, NULL);  // Inicializa el mutex
+
+// Variable de condición
 pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
+// la anterior linea de codigo es lo mismo que hacer las siguientes 2 lineas:
+// pthread_cond_t cond;
+// pthread_cond_init(&cond, NULL);  // Inicializa la variable de condición
+
+
 
 // Función del productor
 void* productor(void* arg) {
