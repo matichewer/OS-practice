@@ -75,7 +75,7 @@ void* tareaD(void* arg) {
 
 
 int main() {
-    pthread_t threadA, threadB, threadC, threadD, threadE;
+    pthread_t threadA, threadB, threadC, threadD;
 
     sem_init(&semA, 0, 1);
     sem_init(&semB, 0, 0);
